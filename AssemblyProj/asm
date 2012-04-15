@@ -1,0 +1,14 @@
+# Script to assemble and link
+# asm x
+# x.asm = input, x = output
+elf32=$( nasm -hf | grep -c elf32 )
+if [ $elf32 == 0 ]
+then
+ nasm -f elf -g $1.asm
+else
+ nasm -f elf32 -g $1.asm
+fi
+#invoke gcc to link
+gcc -g -o $1 cs224_util.o $1.o
+
+
